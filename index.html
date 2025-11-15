@@ -1,500 +1,2799 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Dreamy Homes Ltd. | Premium Real Estate</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="assets/css/style.css" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamy Homes Ltd. | Premium Real Estate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS RESET & VARIABLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6b73ff;
+            --primary-dark: #5a62e6;
+            --primary-light: #8a90ff;
+            --white: #ffffff;
+            --black: #000000;
+            --dark: #0c0c1d;
+            --gray-light: #f8f9fb;
+            --gray: #6c757d;
+            --gray-dark: #495057;
+            --success: #28a745;
+            --warning: #ffc107;
+            
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px rgba(0,0,0,0.1);
+            
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 16px;
+            
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* New effect variables */
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            --shadow-glow: 0 0 20px rgba(107, 115, 255, 0.3);
+            --shadow-glow-lg: 0 0 40px rgba(107, 115, 255, 0.5);
+        }
+
+        html {
+            font-size: 62.5%;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 1.6rem;
+            line-height: 1.6;
+            color: var(--black);
+            background: var(--white);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        body.loaded {
+            cursor: auto;
+        }
+
+        /* ===== CUSTOM CURSOR ===== */
+        .cursor-dot, .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary);
+            mix-blend-mode: difference;
+            transition: all 0.1s ease-out;
+        }
+
+        .cursor-dot.hidden, .cursor-outline.hidden {
+            opacity: 0;
+        }
+
+        .cursor-outline.hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            border-color: var(--primary-light);
+        }
+
+        /* ===== BACKGROUND ELEMENTS ===== */
+        .background-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+            background: var(--gradient-2);
+        }
+
+        .shape-3 {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+            background: var(--gradient-3);
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+            }
+            50% { 
+                transform: translateY(-20px) rotate(180deg); 
+            }
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: 5.6rem; }
+        h2 { font-size: 4.8rem; }
+        h3 { font-size: 3.6rem; }
+        h4 { font-size: 2.4rem; }
+        h5 { font-size: 2rem; }
+        h6 { font-size: 1.8rem; }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--gray-dark);
+        }
+
+        /* ===== BUTTON STYLES ===== */
+        .btn-primary, .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 2.4rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1.6rem;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        }
+
+        .btn-primary.large {
+            padding: 1.6rem 3.2rem;
+            font-size: 1.8rem;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ===== HEADER STYLES ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 8rem;
+        }
+
+        .logo img {
+            height: 4rem;
+            width: auto;
+            transition: var(--transition);
+        }
+
+        .logo:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Desktop Navigation */
+        .desktop-nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 4rem;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 1.6rem;
+            padding: 1rem 0;
+            position: relative;
+            transition: var(--transition);
+            overflow: hidden;
+        }
+
+        .nav-underline {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: left;
+        }
+
+        .nav-menu li a:hover .nav-underline,
+        .nav-menu li a.active .nav-underline {
+            width: 100%;
+        }
+
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            color: var(--primary);
+        }
+
+        /* Call Now Button */
+        .call-now-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1.4rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .call-now-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            width: 4rem;
+            height: 4rem;
+            justify-content: center;
+            align-items: center;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(107, 115, 255, 0.1);
+        }
+
+        .bar {
+            width: 2.5rem;
+            height: 0.3rem;
+            background: var(--dark);
+            margin: 0.2rem 0;
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .mobile-menu-btn:hover .bar {
+            background: var(--primary);
+        }
+
+        .mobile-menu-btn.active .bar:nth-child(1) {
+            transform: rotate(45deg) translate(0.6rem, 0.6rem);
+            background: var(--primary);
+        }
+
+        .mobile-menu-btn.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active .bar:nth-child(3) {
+            transform: rotate(-45deg) translate(0.6rem, -0.6rem);
+            background: var(--primary);
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 8rem;
+            left: 0;
+            width: 85%;
+            max-width: 40rem;
+            height: calc(100vh - 8rem);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(30px);
+            box-shadow: var(--shadow-xl);
+            transform: translateX(-100%);
+            transition: var(--transition-slow);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .mobile-nav.active {
+            transform: translateX(0);
+        }
+
+        .mobile-nav-menu {
+            list-style: none;
+            padding: 4rem 2.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-nav-menu li {
+            opacity: 0;
+            transform: translateX(-2rem);
+            transition: var(--transition);
+        }
+
+        .mobile-nav.active .mobile-nav-menu li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mobile-nav.active .mobile-nav-menu li:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-nav.active .mobile-nav-menu li:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-nav.active .mobile-nav-menu li:nth-child(3) { transition-delay: 0.2s; }
+        .mobile-nav.active .mobile-nav-menu li:nth-child(4) { transition-delay: 0.25s; }
+
+        .mobile-nav-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.6rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .mobile-nav-menu li a:hover,
+        .mobile-nav-menu li a.active {
+            color: var(--primary);
+            background: rgba(107, 115, 255, 0.1);
+            transform: translateX(0.5rem);
+        }
+
+        .mobile-nav-menu li a i {
+            margin-right: 1.2rem;
+            font-size: 1.8rem;
+            width: 2rem;
+            text-align: center;
+        }
+
+        .mobile-call-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem;
+            padding: 1.5rem;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1.6rem;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(1rem);
+        }
+
+        .mobile-nav.active .mobile-call-btn {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.3s;
+        }
+
+        .mobile-call-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 998;
+            display: none;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Body scroll lock */
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        /* Main Content Spacing */
+        main {
+            margin-top: 8rem;
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 8rem 0;
+            transform: translateX(5px); /* Moved content slightly to the right */
+        }
+
+        .hero-text {
+            max-width: 60rem;
+            margin-bottom: 4rem;
+        }
+
+        .hero-title {
+            font-size: 5.6rem;
+            color: var(--white);
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        .hero-title .title-line {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero-title .title-line span {
+            display: block;
+            transform: translateY(100%);
+            animation: textReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .hero-title .title-line:nth-child(2) span {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes textReveal {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .hero-description {
+            font-size: 1.8rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            transition: var(--transition);
+        }
+
+        .stat-icon i {
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        .stat-glow {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .stat-card:hover .stat-glow {
+            left: 100%;
+        }
+
+        .stat-card h3 {
+            font-size: 3.6rem;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 0.3;
+        }
+
+        .hero-angle {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: var(--white);
+            clip-path: polygon(0 100%, 100% 0, 100% 100%, 0 100%);
+            z-index: 3;
+        }
+
+        /* ===== PROJECTS OVERVIEW ===== */
+        .projects-overview {
+            padding: 8rem 0;
+            background: var(--gray-light);
+            position: relative;
+        }
+
+        .angle-divider {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: var(--white);
+            z-index: 2;
+        }
+
+        .angle-divider.top {
+            top: -50px;
+            clip-path: polygon(0 100%, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .angle-divider.bottom {
+            bottom: -50px;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0);
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .overview-card {
+            background: var(--white);
+            padding: 3rem 2rem;
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .overview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .overview-card.explore-all {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+        }
+
+        .card-icon {
+            width: 6rem;
+            height: 6rem;
+            background: rgba(107, 115, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .overview-card:hover .card-icon {
+            transform: scale(1.1);
+            background: rgba(107, 115, 255, 0.2);
+        }
+
+        .card-icon i {
+            font-size: 2.4rem;
+            color: var(--primary);
+        }
+
+        .overview-card.explore-all .card-icon {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .overview-card.explore-all .card-icon i {
+            color: var(--white);
+        }
+
+        .icon-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            opacity: 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .overview-card h4 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .overview-card.explore-all h4 {
+            color: var(--white);
+        }
+
+        .overview-card p {
+            color: var(--gray);
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .overview-card.explore-all p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .card-hover-effect {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(107, 115, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .overview-card:hover .card-hover-effect {
+            left: 100%;
+        }
+
+        .explore-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.8rem;
+            transition: var(--transition);
+        }
+
+        .explore-link:hover {
+            transform: translateX(5px);
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about-section {
+            padding: 8rem 0;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 60rem;
+            margin: 0 auto 6rem;
+        }
+
+        .section-header h2 {
+            font-size: 4.8rem;
+            color: var(--dark);
+            margin-bottom: 2rem;
+        }
+
+        .section-header p {
+            font-size: 1.8rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 3.6rem;
+            color: var(--dark);
+            margin-bottom: 2rem;
+        }
+
+        .about-description {
+            font-size: 1.6rem;
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+
+        .achievement-stats {
+            display: flex;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .achievement {
+            text-align: center;
+        }
+
+        .achievement .number {
+            display: block;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .achievement .label {
+            font-size: 1.4rem;
+            color: var(--gray);
+        }
+
+        .moto-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .moto-card {
+            background: var(--white);
+            padding: 3rem 2rem;
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .moto-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .moto-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+        }
+
+        .moto-icon {
+            width: 6rem;
+            height: 6rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            color: var(--white);
+            font-size: 2.4rem;
+            transition: var(--transition);
+        }
+
+        .moto-card:hover .moto-icon {
+            transform: scale(1.1);
+        }
+
+        .moto-card h4 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .moto-card p {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: var(--gray-dark);
+            margin: 0;
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .image-container {
+            position: relative;
+            border-radius: var(--border-radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transform-style: preserve-3d;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 40rem;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .image-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.6s ease;
+        }
+
+        .image-container:hover .image-shine {
+            left: 200%;
+        }
+
+        .floating-card {
+            position: absolute;
+            bottom: 3rem;
+            left: 3rem;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            animation: floatCard 4s ease-in-out infinite;
+        }
+
+        @keyframes floatCard {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+            }
+            33% { 
+                transform: translateY(-10px) rotate(1deg); 
+            }
+            66% { 
+                transform: translateY(-5px) rotate(-1deg); 
+            }
+        }
+
+        .floating-card h4 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .floating-card p {
+            margin: 0;
+            font-size: 1.4rem;
+            color: var(--gray);
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-section {
+            padding: clamp(6rem, 8vw, 8rem) 0;
+            background: var(--white);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(4rem, 6vw, 6rem);
+        }
+
+        @media (min-width: 992px) {
+            .contact-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .contact-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: var(--border-radius-lg);
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--primary);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .contact-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 5rem;
+            height: 5rem;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2rem;
+        }
+
+        .contact-card h3 {
+            font-size: 2.4rem;
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            font-size: 1.6rem;
+            color: var(--black);
+        }
+
+        .contact-detail i {
+            color: var(--primary);
+            margin-top: 0.3rem;
+            width: 1.6rem;
+        }
+
+        .social-contact {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .social-contact h4 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .social-links-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            color: var(--gray-dark);
+            transition: var(--transition);
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .social-link.facebook:hover {
+            background: #1877f2;
+            color: white;
+        }
+
+        .social-link.instagram:hover {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: white;
+        }
+
+        .social-link.gmail:hover {
+            background: #d44638;
+            color: white;
+        }
+
+        .social-link.twitter:hover {
+            background: #1da1f2;
+            color: white;
+        }
+
+        .social-icon {
+            font-size: 2.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .social-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        /* Contact Form Styles */
+        .contact-form-container {
+            background: var(--white);
+            padding: 4rem;
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-header {
+            margin-bottom: 3rem;
+        }
+
+        .form-header h2 {
+            font-size: 3.6rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .form-header p {
+            font-size: 1.6rem;
+            color: var(--gray);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.4rem;
+        }
+
+        .form-control {
+            padding: 1.2rem 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 1.6rem;
+            transition: var(--transition);
+            background: var(--white);
+            width: 100%;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(107, 115, 255, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 15rem;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .form-submit {
+            margin-top: 1rem;
+        }
+
+        /* ===== FAQ SECTION ===== */
+        .faq-section {
+            padding: 6rem 0;
+            background: var(--white);
+        }
+
+        .faq-container {
+            max-width: 80rem;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-item:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .faq-question {
+            padding: 2.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .faq-answer {
+            padding: 0 3rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+            color: var(--gray-dark);
+            font-size: 1.6rem;
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 3rem 2.5rem;
+            max-height: 30rem;
+        }
+
+        .faq-toggle {
+            width: 2.4rem;
+            height: 2.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--white);
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 6rem 0 2rem;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 6rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-logo img {
+            height: 4rem;
+            width: auto;
+        }
+
+        .brand-tagline {
+            font-size: 1.6rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+        }
+
+        .newsletter {
+            margin-top: 1rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            font-size: 1.4rem;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .newsletter-form button {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 2rem;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-form button:hover {
+            background: var(--primary-dark);
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+        }
+
+        .link-group h4 {
+            font-size: 1.8rem;
+            color: var(--white);
+            margin-bottom: 2rem;
+        }
+
+        .link-group ul {
+            list-style: none;
+        }
+
+        .link-group ul li {
+            margin-bottom: 1rem;
+        }
+
+        .link-group ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 1.4rem;
+            transition: var(--transition);
+        }
+
+        .link-group ul li a:hover {
+            color: var(--primary-light);
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info i {
+            color: var(--primary);
+            margin-top: 0.2rem;
+            width: 1.6rem;
+        }
+
+        .contact-info span {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.4rem;
+            line-height: 1.4;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            width: 4rem;
+            height: 4rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .copyright {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* ===== ENHANCED BUTTON EFFECTS ===== */
+        .btn-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.6s ease;
+        }
+
+        .btn-primary:hover .btn-shine {
+            left: 200%;
+        }
+
+        .btn-ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* ===== TEXT REVEAL ANIMATIONS ===== */
+        [data-text-reveal] {
+            overflow: hidden;
+        }
+
+        [data-text-reveal] > * {
+            transform: translateY(100%);
+            animation: textReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        /* ===== MAGNETIC EFFECT ===== */
+        [data-magnetic] {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-magnetic]:hover {
+            transform: scale(1.05);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+
+        /* Tablet Devices (768px - 1024px) */
+        @media (max-width: 1024px) {
+            html {
+                font-size: 58%;
+            }
+            
+            .hero-title {
+                font-size: 4.8rem;
+            }
+            
+            .about-content,
+            .contact-content {
+                gap: 4rem;
+            }
+            
+            .moto-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1.5fr;
+                gap: 4rem;
+            }
+            
+            .footer-links {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 3rem;
+            }
+        }
+
+        /* Mobile Devices (576px - 768px) */
+        @media (max-width: 768px) {
+            html {
+                font-size: 56%;
+            }
+            
+            .header-container {
+                height: 7rem;
+            }
+            
+            .desktop-nav,
+            .header-actions .call-now-btn {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            main {
+                margin-top: 7rem;
+            }
+            
+            .hero {
+                min-height: 70vh;
+            }
+            
+            .hero-content {
+                padding: 6rem 0;
+            }
+            
+            .hero-title {
+                font-size: 4rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+            
+            .moto-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .social-links-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+            
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+            
+            .cursor-dot, .cursor-outline {
+                display: none;
+            }
+            
+            .angle-divider {
+                height: 50px;
+            }
+            
+            .angle-divider.top {
+                top: -25px;
+            }
+            
+            .angle-divider.bottom {
+                bottom: -25px;
+            }
+        }
+
+        /* Small Mobile Devices (Below 576px) */
+        @media (max-width: 576px) {
+            html {
+                font-size: 54%;
+            }
+            
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            .header-container {
+                padding: 0 1.5rem;
+            }
+            
+            .logo img {
+                height: 3.5rem;
+            }
+            
+            main {
+                margin-top: 7rem;
+            }
+            
+            .hero-title {
+                font-size: 3.6rem;
+            }
+            
+            .hero-description {
+                font-size: 1.6rem;
+            }
+            
+            .section-header h2 {
+                font-size: 3.6rem;
+            }
+            
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .moto-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .floating-card {
+                bottom: 2rem;
+                left: 2rem;
+                right: 2rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .mobile-nav {
+                width: 85%;
+                max-width: 28rem;
+            }
+            
+            .mobile-nav-menu {
+                padding: 3rem 2rem;
+            }
+            
+            .mobile-nav-menu li a {
+                padding: 1.2rem 1.5rem;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Extra Small Devices (Below 400px) */
+        @media (max-width: 400px) {
+            html {
+                font-size: 50%;
+            }
+            
+            .hero-title {
+                font-size: 3.2rem;
+            }
+            
+            .btn-primary, .btn-secondary {
+                padding: 1rem 2rem;
+                font-size: 1.4rem;
+            }
+            
+            .social-links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== PERFORMANCE OPTIMIZATIONS ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Hardware Acceleration */
+        [data-tilt], .stat-card, .overview-card, .moto-card, .image-container {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+    </style>
 </head>
 <body>
-<!-- Custom Cursor -->
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-outline" id="cursorOutline"></div>
-<!-- Animated Background Elements -->
-<div class="background-elements">
-<div class="floating-shape shape-1"></div>
-<div class="floating-shape shape-2"></div>
-<div class="floating-shape shape-3"></div>
-</div>
-<!-- Header -->
-<header>
-<div class="header-container">
-<!-- Logo - Left -->
-<div class="logo">
-<img alt="Dreamy Homes Ltd." src="/assets/images/logo/logo.png"/>
-</div>
-<!-- Navigation - Center (Desktop) -->
-<nav class="desktop-nav">
-<ul class="nav-menu">
-<li><a class="active" data-magnetic="" href="#">
-<span class="nav-text">Home</span>
-<span class="nav-underline"></span>
-</a></li>
-<li><a data-magnetic="" href="/about.html">
-<span class="nav-text">About</span>
-<span class="nav-underline"></span>
-</a></li>
-<li><a data-magnetic="" href="/listings.html">
-<span class="nav-text">Projects</span>
-<span class="nav-underline"></span>
-</a></li>
-<li><a data-magnetic="" href="/contact.html">
-<span class="nav-text">Contact</span>
-<span class="nav-underline"></span>
-</a></li>
-</ul>
-</nav>
-<!-- Call Now Button - Right (Desktop) -->
-<div class="header-actions">
-<a class="call-now-btn" data-magnetic="" data-ripple="" href="tel:01726-696010">
-<span>Call Now</span>
-<i class="fas fa-phone"></i>
-<div class="btn-ripple"></div>
-</a>
-<!-- Mobile Menu Button -->
-<button class="mobile-menu-btn" id="mobileMenuBtn">
-<span class="bar"></span>
-<span class="bar"></span>
-<span class="bar"></span>
-</button>
-</div>
-</div>
-<!-- Mobile Navigation Dropdown -->
-<nav class="mobile-nav" id="mobileNav">
-<ul class="mobile-nav-menu">
-<li><a class="active" href="#"><i class="fas fa-home"></i>Home</a></li>
-<li><a href="/about.html"><i class="fas fa-info-circle"></i>About</a></li>
-<li><a href="/listings.html"><i class="fas fa-building"></i>Projects</a></li>
-<li><a href="/contact.html"><i class="fas fa-envelope"></i>Contact</a></li>
-</ul>
-<a class="mobile-call-btn" href="tel:01726-696010">
-<i class="fas fa-phone"></i> Call Now: 16760
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
+
+    <!-- Animated Background Elements -->
+    <div class="background-elements">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <!-- Logo - Left -->
+            <div class="logo">
+                <div style="font-size: 2.4rem; font-weight: 700; color: var(--primary);">Dreamy Homes</div>
+            </div>
+
+            <!-- Navigation - Center (Desktop) -->
+            <nav class="desktop-nav">
+                <ul class="nav-menu">
+                    <li><a href="#" class="active" data-magnetic>
+                        <span class="nav-text">Home</span>
+                        <span class="nav-underline"></span>
+                    </a></li>
+                    <li><a href="#about" data-magnetic>
+                        <span class="nav-text">About</span>
+                        <span class="nav-underline"></span>
+                    </a></li>
+                    <li><a href="#projects" data-magnetic>
+                        <span class="nav-text">Projects</span>
+                        <span class="nav-underline"></span>
+                    </a></li>
+                    <li><a href="#contact" data-magnetic>
+                        <span class="nav-text">Contact</span>
+                        <span class="nav-underline"></span>
+                    </a></li>
+                </ul>
+            </nav>
+
+            <!-- Call Now Button - Right (Desktop) -->
+            <div class="header-actions">
+                <a href="tel:01726-696010" class="call-now-btn" data-magnetic data-ripple>
+                    <span>Call Now</span>
+                    <i class="fas fa-phone"></i>
+                    <div class="btn-ripple"></div>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Dropdown -->
+        <nav class="mobile-nav" id="mobileNav">
+            <ul class="mobile-nav-menu">
+                <li><a href="#" class="active"><i class="fas fa-home"></i>Home</a></li>
+                <li><a href="#about"><i class="fas fa-info-circle"></i>About</a></li>
+                <li><a href="#projects"><i class="fas fa-building"></i>Projects</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i>Contact</a></li>
+            </ul>
+            <a href="tel:01726-696010" class="mobile-call-btn">
+                <i class="fas fa-phone"></i> Call Now: 16760
             </a>
-</nav>
-</header>
-<!-- Overlay -->
-<div class="overlay" id="overlay"></div>
-<main>
-<!-- Hero Section -->
-<section class="hero">
-<div class="hero-content">
-<div class="hero-text">
-<h1 class="hero-title" data-text-reveal="">
-<span class="title-line">Investing in Your Future</span>
-<span class="title-line">One Home at a Time</span>
-</h1>
-<p class="hero-description" data-text-reveal="">
+        </nav>
+    </header>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title" data-text-reveal>
+                        <span class="title-line">Investing in Your Future</span>
+                        <span class="title-line">One Home at a Time</span>
+                    </h1>
+                    <p class="hero-description" data-text-reveal>
                         Empower your financial horizon with <strong>Dreamy Homes Ltd.</strong>, your gateway to strategic home investments shaping a prosperous tomorrow in the real estate landscape.
                     </p>
-<a class="btn-primary" data-magnetic="" data-ripple="" href="/contact.html">
-<span>Get Started</span>
-<i class="fas fa-arrow-right"></i>
-<div class="btn-shine"></div>
-</a>
-</div>
-<div class="hero-stats">
-<div class="stat-card" data-tilt="">
-<div class="stat-icon">
-<i class="fas fa-building"></i>
-</div>
-<h3>15+</h3>
-<p>Completed Projects</p>
-<div class="stat-glow"></div>
-</div>
-<div class="stat-card" data-tilt="">
-<div class="stat-icon">
-<i class="fas fa-home"></i>
-</div>
-<h3>1K+</h3>
-<p>Properties Ready</p>
-<div class="stat-glow"></div>
-</div>
-<div class="stat-card" data-tilt="">
-<div class="stat-icon">
-<i class="fas fa-calendar-alt"></i>
-</div>
-<h3>15+</h3>
-<p>Years Experience</p>
-<div class="stat-glow"></div>
-</div>
-</div>
-</div>
-<div class="hero-background">
-<div class="hero-image">
-<img alt="Dreamy Homes Ltd." src="/assets/images/backgrounds/giant-building-with-sun.jpg"/>
-</div>
-<div class="hero-angle"></div>
-</div>
-</section>
-<!-- Projects Overview -->
-<section class="projects-overview">
-<div class="angle-divider top"></div>
-<div class="container">
-<div class="overview-grid">
-<div class="overview-card" data-tilt="">
-<div class="card-icon">
-<i class="fas fa-hard-hat"></i>
-<div class="icon-pulse"></div>
-</div>
-<h4>Ongoing Projects</h4>
-<p>Discover our current developments shaping tomorrow's skyline</p>
-<div class="card-hover-effect"></div>
-</div>
-<div class="overview-card" data-tilt="">
-<div class="card-icon">
-<i class="fas fa-check-circle"></i>
-<div class="icon-pulse"></div>
-</div>
-<h4>Completed</h4>
-<p>Explore our successfully delivered premium properties</p>
-<div class="card-hover-effect"></div>
-</div>
-<div class="overview-card" data-tilt="">
-<div class="card-icon">
-<i class="fas fa-calendar-alt"></i>
-<div class="icon-pulse"></div>
-</div>
-<h4>Upcoming</h4>
-<p>Get early access to our future visionary projects</p>
-<div class="card-hover-effect"></div>
-</div>
-<div class="overview-card explore-all" data-tilt="">
-<a class="explore-link" href="/listings.html">
-<span>Explore All Projects</span>
-<i class="fas fa-arrow-right"></i>
-</a>
-<div class="card-hover-effect"></div>
-</div>
-</div>
-</div>
-<div class="angle-divider bottom"></div>
-</section>
-<!-- About Section -->
-<section class="about-section">
-<div class="container">
-<div class="section-header">
-<h2 data-text-reveal="">About Us</h2>
-<p data-text-reveal="">Leading the way in premium real estate development with innovation and trust</p>
-</div>
-<div class="about-content">
-<div class="about-text">
-<h3 data-text-reveal="">Navigating Your Real Estate Journey</h3>
-<p class="about-description" data-text-reveal="">
-                            At <strong>Dreamy Homes Ltd.</strong>, we are dedicated to connecting people with their perfect properties through trust, expertise, and innovation. With over 15 years of excellence, we've redefined modern living across Bangladesh.
-                        </p>
-<div class="achievement-stats">
-<div class="achievement" data-counter="1000">
-<span class="number">0</span>
-<span class="label">Properties Ready</span>
-</div>
-<div class="achievement" data-counter="15">
-<span class="number">0</span>
-<span class="label">Projects Completed</span>
-</div>
-<div class="achievement" data-counter="5">
-<span class="number">0</span>
-<span class="label">Years Experience</span>
-</div>
-</div>
-<a class="btn-secondary" data-magnetic="" data-ripple="" href="/contact.html">
-<span>Contact Us</span>
-<i class="fas fa-paper-plane"></i>
-<div class="btn-ripple"></div>
-</a>
-</div>
-<div class="about-visual">
-<div class="image-container" data-tilt="">
-<img alt="Modern Business Building" src="/assets/images/modern-business-building-with-glass-wall-from-empty-floor.jpg"/>
-<div class="floating-card" data-float="">
-<h4>1K+</h4>
-<p>Property Ready to buy and sell</p>
-</div>
-<div class="image-shine"></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Comfort Section -->
-<section class="comfort-section">
-<div class="comfort-angle"></div>
-<div class="container">
-<div class="comfort-content">
-<div class="comfort-text">
-<h2 data-text-reveal="">Where Comfort Meets Convenience</h2>
-<p data-text-reveal="">Backed by deep industry knowledge and a passion for innovation, <strong>Dreamy Homes Ltd.</strong> connects you to premium properties with a seamless and personalized journey that exceeds expectations.</p>
-</div>
-<div class="comfort-video">
-<div class="video-container" data-tilt="">
-<video autoplay="" controls="" loop="" muted="">
-<source src="/assets/videos/hotel_-_1303 (Original).mp4" type="video/mp4"/>
-                                Your browser does not support the video tag.
-                            </video>
-<div class="video-overlay">
-<button class="play-btn" data-magnetic="" data-ripple="">
-<i class="fas fa-play"></i>
-<div class="pulse-ring"></div>
-</button>
-</div>
-<div class="video-glow"></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Projects Section -->
-<section class="projects-section">
-<div class="angle-divider top reverse"></div>
-<div class="container">
-<div class="section-header">
-<h2 data-text-reveal="">Our Popular Projects</h2>
-<p data-text-reveal="">With a legacy of excellence, <strong>Dreamy Homes Ltd.</strong> has completed 15+ signature projects in just 5 years. We're shaping vibrant communities and redefining modern living through quality, innovation, and trust.</p>
-</div>
-<div class="projects-grid">
-<!-- Project 1 -->
-<div class="project-card" data-tilt="">
-<div class="project-image">
-<img alt="Dreamy Fahmida" src="/assets/images/Dreamy Fahmida 01 copy.jpg"/>
-<div class="project-status completed">Completed</div>
-<div class="image-overlay"></div>
-</div>
-<div class="project-info">
-<h4>Dreamy Fahmida</h4>
-<div class="project-meta">
-<div class="location">
-<i class="fas fa-map-marker-alt"></i>
-<span>Mirpur, Kafrul, Dhaka-1216</span>
-</div>
-<div class="handover">
-<i class="fas fa-calendar-check"></i>
-<span>Handover: 01.03.2014</span>
-</div>
-</div>
-<a class="project-link" href="/projects/completed/dreamy-fahmida.html">
-<span>View Details</span>
-<i class="fas fa-arrow-right"></i>
-</a>
-</div>
-<div class="card-corner"></div>
-</div>
-<!-- Project 2 -->
-<div class="project-card" data-tilt="">
-<div class="project-image">
-<img alt="Dreamy Razia" src="/assets/images/Dreamy Razia 3d.jpg"/>
-<div class="project-status completed">Completed</div>
-<div class="image-overlay"></div>
-</div>
-<div class="project-info">
-<h4>Dreamy Razia</h4>
-<div class="project-meta">
-<div class="location">
-<i class="fas fa-map-marker-alt"></i>
-<span>North Bishil, Mirpur, Dhaka-1216</span>
-</div>
-<div class="handover">
-<i class="fas fa-calendar-check"></i>
-<span>Handover: 01.02.2015</span>
-</div>
-</div>
-<a class="project-link" href="/projects/completed/dreamy-razia.html">
-<span>View Details</span>
-<i class="fas fa-arrow-right"></i>
-</a>
-</div>
-<div class="card-corner"></div>
-</div>
-<!-- Project 3 -->
-<div class="project-card" data-tilt="">
-<div class="project-image">
-<img alt="Dreamy Mahabbat" src="/assets/images/Dreamy Mohabbat 05.jpg"/>
-<div class="project-status completed">Completed</div>
-<div class="image-overlay"></div>
-</div>
-<div class="project-info">
-<h4>Dreamy Mahabbat</h4>
-<div class="project-meta">
-<div class="location">
-<i class="fas fa-map-marker-alt"></i>
-<span>Mirpur, Kafrul, Dhaka-1216</span>
-</div>
-<div class="handover">
-<i class="fas fa-calendar-check"></i>
-<span>Handover: 01.05.2016</span>
-</div>
-</div>
-<a class="project-link" href="/dreamy-mahabbat.html">
-<span>View Details</span>
-<i class="fas fa-arrow-right"></i>
-</a>
-</div>
-<div class="card-corner"></div>
-</div>
-<!-- Project 4 -->
-<div class="project-card" data-tilt="">
-<div class="project-image">
-<img alt="Dreamy Garden" src="/assets/images/Dreamy Garden.jpg"/>
-<div class="project-status completed">Completed</div>
-<div class="image-overlay"></div>
-</div>
-<div class="project-info">
-<h4>Dreamy Garden</h4>
-<div class="project-meta">
-<div class="location">
-<i class="fas fa-map-marker-alt"></i>
-<span>Mirpur, Kafrul, Dhaka-1216</span>
-</div>
-<div class="handover">
-<i class="fas fa-calendar-check"></i>
-<span>Handover: 01.05.2019</span>
-</div>
-</div>
-<a class="project-link" href="/projects/completed/dreamy-garden.html">
-<span>View Details</span>
-<i class="fas fa-arrow-right"></i>
-</a>
-</div>
-<div class="card-corner"></div>
-</div>
-<!-- Project 5 -->
-<div class="project-card" data-tilt="">
-<div class="project-image">
-<img alt="Dreamy Jarina" src="/assets/images/Dreamy Jarina 01 copy.jpg"/>
-<div class="project-status ongoing">Ongoing</div>
-<div class="image-overlay"></div>
-</div>
-<div class="project-info">
-<h4>Dreamy Jarina</h4>
-<div class="project-meta">
-<div class="location">
-<i class="fas fa-map-marker-alt"></i>
-<span>Mirpur, Kafrul, Dhaka-1216</span>
-</div>
-<div class="handover">
-<i class="fas fa-calendar-check"></i>
-<span>Handover: 01.01.2020</span>
-</div>
-</div>
-<a class="project-link" href="/projects/completed/dreamy-jarina.html">
-<span>View Details</span>
-<i class="fas fa-arrow-right"></i>
-</a>
-</div>
-<div class="card-corner"></div>
-</div>
-<!-- Project 6 -->
-<div class="project-card" data-tilt="">
-<div class="project-image">
-<img alt="Dreamy Shuchana Swarna Mahal" src="/assets/images/Dreamy Fahmida 01 copy.jpg"/>
-<div class="project-status ongoing">Ongoing</div>
-<div class="image-overlay"></div>
-</div>
-<div class="project-info">
-<h4>Dreamy Shuchana Swarna Mahal</h4>
-<div class="project-meta">
-<div class="location">
-<i class="fas fa-map-marker-alt"></i>
-<span>Mirpur, Dhaka-1216</span>
-</div>
-<div class="handover">
-<i class="fas fa-calendar-check"></i>
-<span>Handover: 30.09.2021</span>
-</div>
-</div>
-<a class="project-link" href="/projects/completed/dreamy-shuchana-swarna-mahal.html">
-<span>View Details</span>
-<i class="fas fa-arrow-right"></i>
-</a>
-</div>
-<div class="card-corner"></div>
-</div>
-</div>
-<div class="section-cta">
-<a class="btn-primary large" data-magnetic="" data-ripple="" href="/listings.html">
-<span>Explore All Projects</span>
-<i class="fas fa-arrow-right"></i>
-<div class="btn-shine"></div>
-</a>
-</div>
-</div>
-</section>
-<!-- Footer -->
-<footer class="footer">
-<div class="footer-angle"></div>
-<div class="container">
-<div class="footer-content">
-<div class="footer-brand">
-<div class="footer-logo">
-<img alt="Dreamy Homes Ltd." src="/assets/images/logo/white-logo.png"/>
-</div>
-<p class="brand-tagline">Investing in your future one home at a time</p>
-<div class="newsletter">
-<form class="newsletter-form">
-<input placeholder="Enter your email" required="" type="email"/>
-<button data-ripple="" type="submit">
-<span>Subscribe</span>
-<i class="fas fa-paper-plane"></i>
-</button>
-</form>
-</div>
-</div>
-<div class="footer-links">
-<div class="link-group">
-<h4>Quick Links</h4>
-<ul>
-<li><a href="/index.html">Home</a></li>
-<li><a href="/listings.html">Rent</a></li>
-<li><a href="/listings.html">Sell</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/contact.html">Contact</a></li>
-</ul>
-</div>
-<div class="link-group">
-<h4>About Us</h4>
-<ul>
-<li><a href="#">Payment Plans</a></li>
-<li><a href="#">Make Saving More</a></li>
-<li><a href="#">Developer</a></li>
-<li><a href="#">Talk To Us</a></li>
-</ul>
-</div>
-<div class="link-group">
-<h4>Contact Info</h4>
-<ul class="contact-info">
-<li>
-<i class="fas fa-map-marker-alt"></i>
-<span>House-22, 1st floor, Road-03, Block-C, Section-13, Mirpur, Dhaka-1216</span>
-</li>
-<li>
-<i class="fas fa-phone"></i>
-<span>+880 (017) 2669-6010</span>
-</li>
-<li>
-<i class="fas fa-envelope"></i>
-<span>contact@dreamyhomesltd.com</span>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="footer-bottom">
-<div class="social-links">
-<a data-magnetic="" data-ripple="" href="#"><i class="fab fa-facebook-f"></i></a>
-<a data-magnetic="" data-ripple="" href="#"><i class="fab fa-twitter"></i></a>
-<a data-magnetic="" data-ripple="" href="#"><i class="fab fa-instagram"></i></a>
-<a data-magnetic="" data-ripple="" href="#"><i class="fab fa-linkedin-in"></i></a>
-</div>
-<div class="copyright">
-                        © 2025 Dreamy Homes Ltd. All rights reserved
+                    <a href="#contact" class="btn-primary" data-magnetic data-ripple>
+                        <span>Get Started</span>
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="btn-shine"></div>
+                    </a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-card" data-tilt>
+                        <div class="stat-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3>8+</h3>
+                        <p>Completed Projects</p>
+                        <div class="stat-glow"></div>
                     </div>
-</div>
-</div>
-</footer>
-</main>
-<script src="assets/js/script.js"></script>
+                    <div class="stat-card" data-tilt>
+                        <div class="stat-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3>100+</h3>
+                        <p>Valued Customers</p>
+                        <div class="stat-glow"></div>
+                    </div>
+                    <div class="stat-card" data-tilt>
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3>15+</h3>
+                        <p>Years Experience</p>
+                        <div class="stat-glow"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-background">
+                <div class="hero-image"></div>
+                <div class="hero-angle"></div>
+            </div>
+        </section>
+
+        <!-- Projects Overview -->
+        <section class="projects-overview" id="projects">
+            <div class="angle-divider top"></div>
+            <div class="container">
+                <div class="overview-grid">
+                    <div class="overview-card" data-tilt>
+                        <div class="card-icon">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="icon-pulse"></div>
+                        </div>
+                        <h4>Completed (8)</h4>
+                        <p>Discover our successfully delivered premium properties</p>
+                        <a href="projects.html?section=completed" class="project-link" style="color: var(--primary); font-size: 1.4rem; margin-top: 1rem; display: inline-block;">
+                            View Completed Projects
+                        </a>
+                        <div class="card-hover-effect"></div>
+                    </div>
+                    <div class="overview-card" data-tilt>
+                        <div class="card-icon">
+                            <i class="fas fa-hard-hat"></i>
+                            <div class="icon-pulse"></div>
+                        </div>
+                        <h4>Ongoing (3)</h4>
+                        <p>Explore our current developments shaping tomorrow's skyline</p>
+                        <a href="projects.html?section=ongoing" class="project-link" style="color: var(--primary); font-size: 1.4rem; margin-top: 1rem; display: inline-block;">
+                            View Ongoing Projects
+                        </a>
+                        <div class="card-hover-effect"></div>
+                    </div>
+                    <div class="overview-card" data-tilt>
+                        <div class="card-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div class="icon-pulse"></div>
+                        </div>
+                        <h4>Upcoming (3)</h4>
+                        <p>Get early access to our future visionary projects</p>
+                        <a href="projects.html?section=upcoming" class="project-link" style="color: var(--primary); font-size: 1.4rem; margin-top: 1rem; display: inline-block;">
+                            View Upcoming Projects
+                        </a>
+                        <div class="card-hover-effect"></div>
+                    </div>
+                    <div class="overview-card explore-all" data-tilt>
+                        <a href="projects.html" class="explore-link">
+                            <span>Explore All Projects</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <div class="card-hover-effect"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="angle-divider bottom"></div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-text-reveal>About Us</h2>
+                    <p data-text-reveal>Leading the way in premium real estate development with innovation and trust</p>
+                </div>
+                
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3 data-text-reveal>Building Dreams, Creating Legacies</h3>
+                        <p class="about-description" data-text-reveal>
+                            At <strong>Dreamy Homes Ltd.</strong>, we are dedicated to connecting people with their perfect properties through trust, expertise, and innovation. With over 15 years of excellence, we've redefined modern living across Bangladesh, creating communities that inspire and homes that last generations.
+                        </p>
+                        
+                        <div class="achievement-stats">
+                            <div class="achievement" data-counter="1000">
+                                <span class="number">0</span>
+                                <span class="label">Properties Ready</span>
+                            </div>
+                            <div class="achievement" data-counter="15">
+                                <span class="number">0</span>
+                                <span class="label">Projects Completed</span>
+                            </div>
+                            <div class="achievement" data-counter="5">
+                                <span class="number">0</span>
+                                <span class="label">Years Experience</span>
+                            </div>
+                        </div>
+                        
+                        <div class="moto-grid">
+                            <div class="moto-card" data-magnetic>
+                                <div class="moto-icon">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <h4>Our Vision</h4>
+                                <p>To be Bangladesh's most trusted real estate developer, creating sustainable communities that inspire generations.</p>
+                            </div>
+                            <div class="moto-card" data-magnetic>
+                                <div class="moto-icon">
+                                    <i class="fas fa-bullseye"></i>
+                                </div>
+                                <h4>Our Mission</h4>
+                                <p>Deliver exceptional quality homes through innovation, integrity, and customer-centric approach.</p>
+                            </div>
+                            <div class="moto-card" data-magnetic>
+                                <div class="moto-icon">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <h4>Our Promise</h4>
+                                <p>Quality craftsmanship, timely delivery, and transparent dealings - building trust one project at a time.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-visual">
+                        <div class="image-container" data-tilt>
+                            <div style="width: 100%; height: 40rem; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; font-weight: 600;">
+                                Modern Business Building
+                            </div>
+                            <div class="floating-card" data-float>
+                                <h4>1K+</h4>
+                                <p>Property Ready to buy and sell</p>
+                            </div>
+                            <div class="image-shine"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-text-reveal>Get In Touch</h2>
+                    <p data-text-reveal>Ready to find your dream home? Our team is here to guide you through every step</p>
+                </div>
+                
+                <div class="contact-content">
+                    <!-- Contact Information -->
+                    <div class="contact-info">
+                        <div class="contact-card" data-magnetic>
+                            <div class="contact-card-header">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <h3>Our Office</h3>
+                            </div>
+                            <div class="contact-details">
+                                <div class="contact-detail">
+                                    <i class="fas fa-building"></i>
+                                    <span>House-22, 1st floor, Road-03, Block-C, Section-13, Mirpur, Dhaka-1216</span>
+                                </div>
+                                <div class="contact-detail">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-card" data-magnetic>
+                            <div class="contact-card-header">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <h3>Contact Details</h3>
+                            </div>
+                            <div class="contact-details">
+                                <div class="contact-detail">
+                                    <i class="fas fa-phone"></i>
+                                    <span>+880 (017) 2669-6010</span>
+                                </div>
+                                <div class="contact-detail">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>+880 (016) 7283-7307</span>
+                                </div>
+                                <div class="contact-detail">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>contact@dreamyhomes.com</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Social Media Links -->
+                            <div class="social-contact">
+                                <h4>Connect With Us</h4>
+                                <div class="social-links-grid">
+                                    <a href="#" class="social-link facebook">
+                                        <i class="fab fa-facebook-f social-icon"></i>
+                                        <span class="social-name">Facebook</span>
+                                    </a>
+                                    <a href="#" class="social-link instagram">
+                                        <i class="fab fa-instagram social-icon"></i>
+                                        <span class="social-name">Instagram</span>
+                                    </a>
+                                    <a href="#" class="social-link gmail">
+                                        <i class="fas fa-envelope social-icon"></i>
+                                        <span class="social-name">Gmail</span>
+                                    </a>
+                                    <a href="#" class="social-link twitter">
+                                        <i class="fab fa-twitter social-icon"></i>
+                                        <span class="social-name">Twitter</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="contact-form-container">
+                        <div class="form-header">
+                            <h2>Send Us a Message</h2>
+                            <p>Fill out the form below and our team will get back to you within 24 hours.</p>
+                        </div>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" id="firstName" class="form-control" placeholder="Enter your first name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" class="form-control" placeholder="Enter your last name" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" class="form-control" placeholder="What is this regarding?" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Your Message</label>
+                                <textarea id="message" class="form-control" placeholder="Tell us how we can help you..." required></textarea>
+                            </div>
+                            <div class="form-submit">
+                                <button type="submit" class="btn-primary large">
+                                    <span>Send Message</span>
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- FAQ Section -->
+                <div class="faq-section">
+                    <div class="section-header">
+                        <h3 data-text-reveal>Frequently Asked Questions</h3>
+                    </div>
+                    
+                    <div class="faq-container">
+                        <div class="faq-item" data-magnetic>
+                            <div class="faq-question">
+                                <span>How do I schedule a property viewing?</span>
+                                <div class="faq-toggle">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer">
+                                <p>You can schedule a property viewing by calling our office at +880 (017) 2669-6010, using our online contact form, or by visiting our office during business hours. Our team will coordinate a convenient time for your visit.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item" data-magnetic>
+                            <div class="faq-question">
+                                <span>What areas do you serve?</span>
+                                <div class="faq-toggle">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Dreamy Homes Ltd. primarily serves the greater Dhaka area, including residential and commercial properties in Mirpur, Gulshan, Banani, Uttara, and surrounding neighborhoods. We also have select properties in other major cities across Bangladesh.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item" data-magnetic>
+                            <div class="faq-question">
+                                <span>Do you offer financing options?</span>
+                                <div class="faq-toggle">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, we partner with several reputable financial institutions to offer competitive financing options for qualified buyers. Our team can help connect you with mortgage specialists who will guide you through the pre-approval process.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <div style="font-size: 2.4rem; font-weight: 700; color: var(--white);">Dreamy Homes</div>
+                        </div>
+                        <p class="brand-tagline">Investing in your future one home at a time</p>
+                        <div class="newsletter">
+                            <form class="newsletter-form">
+                                <input type="email" placeholder="Enter your email" required>
+                                <button type="submit" data-ripple>
+                                    <span>Subscribe</span>
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="footer-links">
+                        <div class="link-group">
+                            <h4>Quick Links</h4>
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#projects">Projects</a></li>
+                                <li><a href="#about">About</a></li>
+                                <li><a href="#contact">Contact</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="link-group">
+                            <h4>About Us</h4>
+                            <ul>
+                                <li><a href="#">Payment Plans</a></li>
+                                <li><a href="#">Make Saving More</a></li>
+                                <li><a href="#">Developer</a></li>
+                                <li><a href="#">Talk To Us</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="link-group">
+                            <h4>Contact Info</h4>
+                            <ul class="contact-info">
+                                <li>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>House-22, 1st floor, Road-03, Block-C, Section-13, Mirpur, Dhaka-1216</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone"></i>
+                                    <span>+880 (017) 2669-6010</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-envelope"></i>
+                                    <span>contact@dreamyhomesltd.com</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <div class="social-links">
+                        <a href="#" data-magnetic data-ripple><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" data-magnetic data-ripple><i class="fas fa-envelope"></i></a>
+                        <a href="#" data-magnetic data-ripple><i class="fab fa-instagram"></i></a>
+                        <a href="#" data-magnetic data-ripple><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="copyright">
+                        &copy; 2025 Dreamy Homes Ltd. All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Enhanced JavaScript with Advanced Interactions
+
+        // Mobile Menu Functionality
+        class MobileMenu {
+            constructor() {
+                this.mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                this.mobileNav = document.getElementById('mobileNav');
+                this.overlay = document.getElementById('overlay');
+                this.body = document.body;
+                this.isOpen = false;
+                
+                this.init();
+            }
+            
+            init() {
+                this.addEventListeners();
+                this.setAccessibilityAttributes();
+            }
+            
+            addEventListeners() {
+                // Menu button click
+                this.mobileMenuBtn.addEventListener('click', () => this.toggle());
+                
+                // Overlay click
+                this.overlay.addEventListener('click', () => this.close());
+                
+                // Mobile links click
+                const mobileLinks = document.querySelectorAll('.mobile-nav-menu a, .mobile-call-btn');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => this.close());
+                });
+                
+                // Escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.isOpen) {
+                        this.close();
+                    }
+                });
+                
+                // Window resize
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 768 && this.isOpen) {
+                        this.close();
+                    }
+                });
+            }
+            
+            setAccessibilityAttributes() {
+                this.mobileMenuBtn.setAttribute('aria-label', 'Toggle navigation menu');
+                this.mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                this.mobileMenuBtn.setAttribute('aria-controls', 'mobileNav');
+            }
+            
+            toggle() {
+                if (this.isOpen) {
+                    this.close();
+                } else {
+                    this.open();
+                }
+            }
+            
+            open() {
+                this.mobileMenuBtn.classList.add('active');
+                this.mobileNav.classList.add('active');
+                this.overlay.classList.add('active');
+                this.body.classList.add('menu-open');
+                this.mobileMenuBtn.setAttribute('aria-expanded', 'true');
+                this.isOpen = true;
+            }
+            
+            close() {
+                this.mobileMenuBtn.classList.remove('active');
+                this.mobileNav.classList.remove('active');
+                this.overlay.classList.remove('active');
+                this.body.classList.remove('menu-open');
+                this.mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                this.isOpen = false;
+            }
+        }
+
+        // Smooth Scroll for Anchor Links
+        class SmoothScroll {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', (e) => {
+                        const href = anchor.getAttribute('href');
+                        
+                        // Only apply smooth scroll for anchor links on same page
+                        if (href !== '#' && href.startsWith('#')) {
+                            e.preventDefault();
+                            const target = document.querySelector(href);
+                            if (target) {
+                                target.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }
+                        }
+                    });
+                });
+            }
+        }
+
+        // Header Scroll Effect
+        class HeaderScroll {
+            constructor() {
+                this.header = document.querySelector('header');
+                this.lastScrollY = window.scrollY;
+                this.init();
+            }
+            
+            init() {
+                window.addEventListener('scroll', () => {
+                    const currentScrollY = window.scrollY;
+                    
+                    if (currentScrollY > 100) {
+                        this.header.style.background = 'rgba(255, 255, 255, 0.98)';
+                        this.header.style.backdropFilter = 'blur(20px)';
+                        this.header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+                    } else {
+                        this.header.style.background = 'rgba(255, 255, 255, 0.95)';
+                        this.header.style.backdropFilter = 'blur(10px)';
+                        this.header.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+                    }
+                    
+                    this.lastScrollY = currentScrollY;
+                });
+            }
+        }
+
+        // Custom Cursor
+        class CustomCursor {
+            constructor() {
+                this.cursorDot = document.getElementById('cursorDot');
+                this.cursorOutline = document.getElementById('cursorOutline');
+                this.mouseX = 0;
+                this.mouseY = 0;
+                this.outlineX = 0;
+                this.outlineY = 0;
+                this.init();
+            }
+            
+            init() {
+                if (window.matchMedia('(pointer: fine)').matches) {
+                    this.bindEvents();
+                } else {
+                    this.hideCursor();
+                }
+            }
+            
+            bindEvents() {
+                document.addEventListener('mousemove', (e) => {
+                    this.mouseX = e.clientX;
+                    this.mouseY = e.clientY;
+                });
+                
+                document.addEventListener('mouseenter', () => this.showCursor());
+                document.addEventListener('mouseleave', () => this.hideCursor());
+                
+                // Add hover effects for interactive elements
+                const interactiveElements = document.querySelectorAll('a, button, [data-magnetic]');
+                interactiveElements.forEach(el => {
+                    el.addEventListener('mouseenter', () => this.onElementHover());
+                    el.addEventListener('mouseleave', () => this.onElementLeave());
+                });
+                
+                this.animate();
+            }
+            
+            animate() {
+                // Dot follows cursor directly
+                this.cursorDot.style.left = this.mouseX + 'px';
+                this.cursorDot.style.top = this.mouseY + 'px';
+                
+                // Outline follows with delay
+                this.outlineX += (this.mouseX - this.outlineX) * 0.1;
+                this.outlineY += (this.mouseY - this.outlineY) * 0.1;
+                
+                this.cursorOutline.style.left = this.outlineX + 'px';
+                this.cursorOutline.style.top = this.outlineY + 'px';
+                
+                requestAnimationFrame(() => this.animate());
+            }
+            
+            onElementHover() {
+                this.cursorOutline.classList.add('hover');
+            }
+            
+            onElementLeave() {
+                this.cursorOutline.classList.remove('hover');
+            }
+            
+            showCursor() {
+                this.cursorDot.classList.remove('hidden');
+                this.cursorOutline.classList.remove('hidden');
+            }
+            
+            hideCursor() {
+                this.cursorDot.classList.add('hidden');
+                this.cursorOutline.classList.add('hidden');
+            }
+        }
+
+        // Magnetic Buttons
+        class MagneticButtons {
+            constructor() {
+                this.magneticElements = document.querySelectorAll('[data-magnetic]');
+                this.init();
+            }
+            
+            init() {
+                this.magneticElements.forEach(element => {
+                    element.addEventListener('mousemove', (e) => this.onMouseMove(e, element));
+                    element.addEventListener('mouseleave', (e) => this.onMouseLeave(e, element));
+                });
+            }
+            
+            onMouseMove(e, element) {
+                const rect = element.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const deltaX = (x - centerX) * 0.1;
+                const deltaY = (y - centerY) * 0.1;
+                
+                element.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+            }
+            
+            onMouseLeave(e, element) {
+                element.style.transform = 'translate(0, 0)';
+            }
+        }
+
+        // Tilt Effect
+        class TiltEffect {
+            constructor() {
+                this.tiltElements = document.querySelectorAll('[data-tilt]');
+                this.init();
+            }
+            
+            init() {
+                this.tiltElements.forEach(element => {
+                    element.addEventListener('mousemove', (e) => this.onMouseMove(e, element));
+                    element.addEventListener('mouseleave', (e) => this.onMouseLeave(e, element));
+                });
+            }
+            
+            onMouseMove(e, element) {
+                const rect = element.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const deltaX = (x - centerX) / centerX;
+                const deltaY = (y - centerY) / centerY;
+                
+                const tiltX = deltaY * 10;
+                const tiltY = -deltaX * 10;
+                
+                element.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.05, 1.05, 1.05)`;
+            }
+            
+            onMouseLeave(e, element) {
+                element.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            }
+        }
+
+        // Text Reveal Animation
+        class TextReveal {
+            constructor() {
+                this.observer = null;
+                this.init();
+            }
+            
+            init() {
+                this.setupIntersectionObserver();
+                this.observeElements();
+            }
+            
+            setupIntersectionObserver() {
+                this.observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            this.animateText(entry.target);
+                            this.observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                });
+            }
+            
+            observeElements() {
+                const elementsToAnimate = document.querySelectorAll('[data-text-reveal]');
+                elementsToAnimate.forEach(el => {
+                    this.observer.observe(el);
+                });
+            }
+            
+            animateText(element) {
+                const children = element.children;
+                Array.from(children).forEach((child, index) => {
+                    child.style.animationDelay = `${index * 0.1}s`;
+                });
+            }
+        }
+
+        // Counter Animation
+        class CounterAnimation {
+            constructor() {
+                this.observer = null;
+                this.init();
+            }
+            
+            init() {
+                this.setupIntersectionObserver();
+                this.observeElements();
+            }
+            
+            setupIntersectionObserver() {
+                this.observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            this.animateCounter(entry.target);
+                            this.observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.5
+                });
+            }
+            
+            observeElements() {
+                const counters = document.querySelectorAll('[data-counter]');
+                counters.forEach(counter => {
+                    this.observer.observe(counter);
+                });
+            }
+            
+            animateCounter(element) {
+                const target = parseInt(element.getAttribute('data-counter'));
+                const numberElement = element.querySelector('.number');
+                const duration = 2000;
+                const step = target / (duration / 16);
+                
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    numberElement.textContent = Math.floor(current);
+                }, 16);
+            }
+        }
+
+        // Ripple Effect
+        class RippleEffect {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                document.addEventListener('click', (e) => {
+                    const target = e.target.closest('[data-ripple]');
+                    if (target) {
+                        this.createRipple(e, target);
+                    }
+                });
+            }
+            
+            createRipple(event, element) {
+                const rect = element.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = event.clientX - rect.left - size / 2;
+                const y = event.clientY - rect.top - size / 2;
+                
+                const ripple = document.createElement('span');
+                ripple.className = 'btn-ripple';
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                
+                element.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            }
+        }
+
+        // FAQ Accordion
+        class FAQAccordion {
+            constructor() {
+                this.faqItems = document.querySelectorAll('.faq-item');
+                this.init();
+            }
+            
+            init() {
+                this.faqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question');
+                    question.addEventListener('click', () => this.toggleItem(item));
+                });
+            }
+            
+            toggleItem(item) {
+                // Close all other items
+                this.faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
+            }
+        }
+
+        // Form Handling
+        class FormHandler {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                const newsletterForm = document.querySelector('.newsletter-form');
+                if (newsletterForm) {
+                    newsletterForm.addEventListener('submit', (e) => this.handleNewsletterSubmit(e));
+                }
+
+                const contactForm = document.getElementById('contactForm');
+                if (contactForm) {
+                    contactForm.addEventListener('submit', (e) => this.handleContactSubmit(e));
+                }
+            }
+            
+            handleNewsletterSubmit(e) {
+                e.preventDefault();
+                const form = e.target;
+                const email = form.querySelector('input[type="email"]').value;
+                
+                // Simulate form submission
+                const button = form.querySelector('button');
+                const originalText = button.innerHTML;
+                
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Subscribing...</span>';
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-check"></i><span>Subscribed!</span>';
+                    form.reset();
+                    
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                        button.disabled = false;
+                    }, 2000);
+                }, 1500);
+            }
+
+            handleContactSubmit(e) {
+                e.preventDefault();
+                const form = e.target;
+                const submitButton = form.querySelector('button[type="submit"]');
+                const originalText = submitButton.innerHTML;
+                
+                // Show loading state
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Sending...</span>';
+                submitButton.disabled = true;
+                
+                // Simulate form submission
+                setTimeout(() => {
+                    // Show success state
+                    submitButton.innerHTML = '<i class="fas fa-check"></i><span>Message Sent!</span>';
+                    
+                    // Reset form
+                    form.reset();
+                    
+                    // Reset button after delay
+                    setTimeout(() => {
+                        submitButton.innerHTML = originalText;
+                        submitButton.disabled = false;
+                    }, 3000);
+                }, 2000);
+            }
+        }
+
+        // Initialize all enhanced functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Core functionality
+            new MobileMenu();
+            new SmoothScroll();
+            new HeaderScroll();
+            
+            // New enhanced functionality
+            new CustomCursor();
+            new MagneticButtons();
+            new TiltEffect();
+            new TextReveal();
+            new CounterAnimation();
+            new RippleEffect();
+            new FAQAccordion();
+            new FormHandler();
+            
+            // Add loading animation
+            document.body.classList.add('loaded');
+        });
+
+        // Performance optimizations
+        window.addEventListener('load', function() {
+            document.body.classList.add('fully-loaded');
+        });
+    </script>
 </body>
 </html>
